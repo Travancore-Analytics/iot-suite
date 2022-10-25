@@ -98,6 +98,7 @@ public:
   virtual void initialize(String serverUrl, String serverVersionNumber, String path);
   virtual updateStatus checkForUpdate(unsigned long interval);
   virtual void updateCode();
+  WiFiClientSecure* getWifiClient();
 #endif
 };
 
@@ -114,6 +115,7 @@ public:
   virtual void initialize(String serverUrl, String serverVersionNumber, String path);
   virtual updateStatus checkForUpdate(unsigned long interval , String eepromVersionNumber);
   virtual void updateCode();
+  WiFiSSLClient* getWifiClient();
 #endif
 };
 
