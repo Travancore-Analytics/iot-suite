@@ -3,13 +3,14 @@
 
 #include "Arduino.h"
 #include "ArduinoJson.h"
+#include "ArduinoLog.h"
 #include <vector>
 
 #if defined(ARDUINO_ARCH_SAMD)
 #include "ArduinoOTA.h"
 #include "WiFiNINA.h"
 #include "ArduinoHttpClient.h"
-#include "IoTUtility.h"
+#include "utility/IoTUtility.h"
 
 #elif defined(ARDUINO_ARCH_ESP32)
 #include "Update.h"
@@ -98,7 +99,6 @@ public:
   virtual void initialize(String serverUrl, String serverVersionNumber, String path);
   virtual updateStatus checkForUpdate(unsigned long interval);
   virtual void updateCode();
-  WiFiClientSecure* getWifiClient();
 #endif
 };
 
@@ -115,7 +115,6 @@ public:
   virtual void initialize(String serverUrl, String serverVersionNumber, String path);
   virtual updateStatus checkForUpdate(unsigned long interval , String eepromVersionNumber);
   virtual void updateCode();
-  WiFiSSLClient* getWifiClient();
 #endif
 };
 

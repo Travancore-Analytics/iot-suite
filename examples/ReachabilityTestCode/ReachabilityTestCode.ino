@@ -3,6 +3,7 @@
 void setup() 
 {
   Serial.begin(9600);
+  Log.begin(LOG_LEVEL_VERBOSE, &Serial); //LOG_LEVEL_SILENT - for disabling Serial prints.
 /**
  *initialize() - Setting up reachability library by 
  *providing required mode(BLE or AccessPoint),Time Interval(ms)
@@ -16,7 +17,7 @@ void setup()
   #error "BOARD NOT SUPPORTED"
 #endif
   delay(1000);
-  Serial.println("initialize completed.");
+  Log.notice("initialize completed.\n");
 }
 
 void loop() 

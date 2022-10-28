@@ -22,6 +22,7 @@ void setup()
 {
   pinMode(ledPin, OUTPUT);
   Serial.begin(9600);
+  Log.begin(LOG_LEVEL_VERBOSE, &Serial);//LOG_LEVEL_SILENT - for disabling Serial prints.
   WiFi.begin(SSID,PASSWORD);            //Connecting to internet.
   delay(2000);
 
@@ -40,6 +41,14 @@ void setup()
  *  firmware version and location of json in webserver.
  **/
   ota.initialize(url, versionnum, location);  //setting up ota library with server parameters.
+
+  #if defined(ARDUINO_SAMD_NANO_33_IOT) 
+  if (ota.checkForUpdate(0,currentVersionNumber) == updateStatus::newUpdate)
+#elif defined(ARDUINO_ARCH_ESP32) || defined(ARDUINO_ARCH_ESP8266)
+  if (ota.checkForUpdate(0) == updateStatus::newUpdate)
+#endif
+    ota.updateCode();           //Updating firmware if new version is available.
+
 }
 
 void loop() 
