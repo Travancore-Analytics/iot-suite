@@ -2,9 +2,10 @@
 #ifndef Reachability_H
 #define Reachability_H
 
+#include "ArduinoLog.h"
 #include "Arduino.h"
 #include "ArduinoJson.h"
-#include "IoTUtility.h"
+#include "utility/IoTUtility.h"
 
 #if defined(ARDUINO_ARCH_ESP32)
 #include "BLEServer.h"
