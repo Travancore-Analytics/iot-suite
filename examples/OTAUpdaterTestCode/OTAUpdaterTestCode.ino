@@ -4,7 +4,6 @@
 #define SSID "your_ssid"
 #define PASSWORD "Network_password"
 
-OTAUpdater ota; //Creating OTA session object.
 String url = "https://d1lbp6ltb9vqea.cloudfront.net/IoTSuite.json";
 
 unsigned long ledpreviousMillis = 0;

@@ -50,6 +50,7 @@ enum connectionType
     ble,
     accessPoint
 };
+
 class ReachabilityBase
 {
 public:
@@ -93,6 +94,7 @@ private:
     std::vector<String> split(String input, const char *delimiter);
     static void onWrite(BLEDevice central, BLECharacteristic characteristic);
     static void writeWifiEeprom(String ssid, String password);
+    static void getCredentialsFromBLE(String wifiCredentials,String *ssid,String *password);
 
     WiFiClient client;
     WiFiServer *server;
@@ -106,9 +108,10 @@ class ReachabilityIoTESP32 : public ReachabilityBase
 public:
     void initialize(connectionType type,uint32_t sec,String deviceName="");
     void loop();
-
+ 
 protected:
     static void writeWifiEeprom(String ssid, String password);
+    static void getCredentialsFromBLE(String wifiCredentials,String *ssid,String *password);
 
 private:
     void observe();
@@ -116,7 +119,7 @@ private:
     bool connectWifi();
     void handlePost();
     void readEEPROM();
-
+   
     WebServer server;
     BLEServer *pServer;
     BLEService *iotService;

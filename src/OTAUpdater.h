@@ -66,9 +66,9 @@ protected:
  * @brief OTAUpdater class for esp32
  *
  */
+#if defined(ARDUINO_ARCH_ESP32)
 class OTAUpdaterIoTESP32 : protected OTAUpdaterBase
 {
-#if defined(ARDUINO_ARCH_ESP32)
   int totalLength;       // total size of firmware
   int currentLength = 0; // current size of written firmware
   StaticJsonDocument<json_max_length> readJson(String path);
@@ -80,16 +80,17 @@ public:
   virtual void initialize(String serverUrl, String serverVersionNumber, String path);
   virtual updateStatus checkForUpdate(unsigned long interval);
   virtual void updateCode();
-#endif
 };
+extern class OTAUpdaterIoTESP32 ota;
 
 /**
  * @brief  OTAUpdater class for esp8266
  *
  */
+#elif defined(ARDUINO_ARCH_ESP8266)
 class OTAUpdaterIoTESP8266 : protected OTAUpdaterBase
 {
-#if defined(ARDUINO_ARCH_ESP8266)
+
   String readEepromVersion();
   StaticJsonDocument<json_max_length> readJson(String path);
   void rewriteEepromVersionNumber(String jsonVersionNumber);
@@ -99,26 +100,26 @@ public:
   virtual void initialize(String serverUrl, String serverVersionNumber, String path);
   virtual updateStatus checkForUpdate(unsigned long interval);
   virtual void updateCode();
-#endif
 };
+extern class OTAUpdaterIoTESP8266 ota;
 
 /**
  * @brief  OTAUpdater class for arduino nano 33 iot
  *
  */
+#elif defined(ARDUINO_ARCH_SAMD)
 class OTAUpdaterIoTArduinoNano33IoT : protected OTAUpdaterBase
 {
-#if defined(ARDUINO_ARCH_SAMD)
   StaticJsonDocument<json_max_length> readJson(String path);
 
 public:
   virtual void initialize(String serverUrl, String serverVersionNumber, String path);
   virtual updateStatus checkForUpdate(unsigned long interval , String eepromVersionNumber);
   virtual void updateCode();
-#endif
 };
+extern class OTAUpdaterIoTArduinoNano33IoT ota;
+#else
+    #error "BOARD NOT SUPPORTED."
+#endif //Class Declaration.
 
-class OTAUpdater : public OTAUpdaterIoTESP32, public OTAUpdaterIoTESP8266, public OTAUpdaterIoTArduinoNano33IoT
-{
-};
-#endif
+#endif //OTAUpdater_H.

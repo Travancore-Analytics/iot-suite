@@ -10,9 +10,9 @@ void setup()
  *for advertising and device name. 
  **/
 #if defined(ARDUINO_SAMD_NANO_33_IOT)|| defined(ARDUINO_ARCH_ESP32)
-  reach.initialize(connectionType::accessPoint,30,"TEST BLE");
+  reach.initialize(connectionType::accessPoint,90,"TEST BLE");
 #elif defined(ARDUINO_ARCH_ESP8266)
-  reach.initialize(30,"TEST BLE");
+  reach.initialize(90,"TEST BLE");
 #else
   #error "BOARD NOT SUPPORTED"
 #endif
